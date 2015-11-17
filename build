@@ -1,0 +1,15 @@
+#!/bin/bash
+set -e
+
+docker build -t sickp/alpine-sshd:7.1 --pull versions/7.1
+docker build -t sickp/alpine-sshd:6.8 versions/6.8
+docker build -t sickp/alpine-sshd:6.7 versions/6.7
+docker build -t sickp/alpine-sshd:6.4 versions/6.4
+docker build -t sickp/alpine-sshd:6.2 versions/6.2
+
+docker tag -f sickp/alpine-sshd:7.1 sickp/alpine-sshd:latest
+
+docker build -t sickp/alpine-sshd:sunshine examples/01_sunshine
+docker build -t sickp/alpine-sshd:authkeys examples/02_authorized_keys
+docker build -t sickp/alpine-sshd:multiuser examples/03_multiuser
+docker build -t sickp/alpine-sshd:hostkeys examples/04_host_keys

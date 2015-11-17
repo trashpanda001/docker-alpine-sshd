@@ -1,0 +1,12 @@
+#!/bin/bash
+docker rmi \
+  sickp/centos-alpine:latest \
+  sickp/centos-alpine:7.1 \
+  sickp/centos-alpine:6.8 \
+  sickp/centos-alpine:6.7 \
+  sickp/centos-alpine:6.4 \
+  sickp/centos-alpine:6.2 \
+  sickp/centos-alpine:sunshine \
+  sickp/centos-alpine:authkeys \
+  sickp/centos-alpine:multiuser \
+  sickp/centos-alpine:hostkeys
