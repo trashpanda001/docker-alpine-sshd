@@ -1,12 +1,3 @@
 #!/bin/bash
-docker rmi \
-  sickp/alpine-sshd:latest \
-  sickp/alpine-sshd:7.1 \
-  sickp/alpine-sshd:6.8 \
-  sickp/alpine-sshd:6.7 \
-  sickp/alpine-sshd:6.4 \
-  sickp/alpine-sshd:6.2 \
-  sickp/alpine-sshd:sunshine \
-  sickp/alpine-sshd:authkeys \
-  sickp/alpine-sshd:multiuser \
-  sickp/alpine-sshd:hostkeys
+repo="sickp/alpine-sshd"
+docker rmi $(docker images -q ${repo})
