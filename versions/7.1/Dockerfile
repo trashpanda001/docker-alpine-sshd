@@ -1,6 +1,6 @@
-# Alpine Linux Edge, OpenSSH_7.1p1-hpn14v4, OpenSSL 1.0.2d 9 Jul 2015
+# Alpine Linux 3.3, OpenSSH_7.1p1-hpn14v4, OpenSSL 1.0.2e 3 Dec 2015
 
-FROM gliderlabs/alpine:edge
+FROM gliderlabs/alpine:3.3
 MAINTAINER Adrian B. Danieli "https://github.com/sickp"
 
 RUN \

@@ -92,9 +92,10 @@ RUN \
   ssh-keygen -A
 ```
 
-### History
+#### History
 
-- 2015-11-16 Initial version, based on [Centos SSHD][centos_sshd].
+- 2015 Dec 25 - Updated 7.1 to Alpine Linux 3.3.
+- 2015 Nov 16 - Initial version, based on [Centos SSHD][centos_sshd].
 
 [alpine_sshd]:       https://hub.docker.com/r/sickp/alpine-sshd/
 [gliderlabs_alpine]: https://hub.docker.com/r/gliderlabs/alpine/
