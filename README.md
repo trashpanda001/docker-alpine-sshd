@@ -30,11 +30,11 @@ $ docker run -dP --name=sshd sickp/alpine-sshd -o LogLevel=DEBUG
 
 #### Supported tags and `Dockerfile` links
 
-* [`7.1`][dockerfile_7_1], [`latest`][dockerfile_7_1] (Alpine Linux Edge, OpenSSH_7.1p1-hpn14v4, OpenSSL 1.0.2d 9 Jul 2015)
-* [`6.8`][dockerfile_6_8] (Alpine Linux 3.2.x, OpenSSH_6.8p1-hpn14v4, OpenSSL 1.0.2d 9 Jul 2015)
-* [`6.7`][dockerfile_6_7] (Alpine Linux 3.1.x, OpenSSH_6.7p1-hpn14v4, OpenSSL 1.0.1p 9 Jul 2015)
-* [`6.4`][dockerfile_6_4] (Alpine Linux 2.7.x, OpenSSH_6.4p1-hpn14v1, OpenSSL 1.0.1p 9 Jul 2015)
-* [`6.2`][dockerfile_6_2] (Alpine Linux 2.6.x, OpenSSH_6.2p2, OpenSSL 1.0.1m 19 Mar 2015)
+* [`7.1`][dockerfile_7_1], [`latest`][dockerfile_7_1] (Alpine Linux 3.3, OpenSSH_7.1p1-hpn14v4, OpenSSL 1.0.2e 3 Dec 2015)
+* [`6.8`][dockerfile_6_8] (Alpine Linux 3.2, OpenSSH_6.8p1-hpn14v4, OpenSSL 1.0.2d 9 Jul 2015)
+* [`6.7`][dockerfile_6_7] (Alpine Linux 3.1, OpenSSH_6.7p1-hpn14v4, OpenSSL 1.0.1p 9 Jul 2015)
+* [`6.4`][dockerfile_6_4] (Alpine Linux 2.7, OpenSSH_6.4p1-hpn14v1, OpenSSL 1.0.1p 9 Jul 2015)
+* [`6.2`][dockerfile_6_2] (Alpine Linux 2.6, OpenSSH_6.2p2, OpenSSL 1.0.1m 19 Mar 2015)
 
 ### Customize
 
