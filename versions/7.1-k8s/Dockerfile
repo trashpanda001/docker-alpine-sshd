@@ -1,4 +1,4 @@
-FROM gliderlabs/alpine:3.3
+FROM janeczku/alpine-kubernetes:3.3
 MAINTAINER Adrian B. Danieli "https://github.com/sickp"
 
 RUN \
