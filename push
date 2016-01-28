@@ -1,8 +1,10 @@
 #!/bin/bash
 set -e
-repo="sickp/alpine-sshd"
-latest=$(ls -r versions | head -1)
-tags="${latest} latest"
+
+repo=sickp/alpine-sshd
+latest=7.1
+tags="${latest} ${latest}-k8s latest"
+
 for tag in ${tags}; do
   docker push ${repo}:${tag}
   echo "=> Pushed ${repo}:${tag}"

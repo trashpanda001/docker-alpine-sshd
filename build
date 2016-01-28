@@ -1,11 +1,15 @@
 #!/bin/bash
 set -e
-repo="sickp/alpine-sshd"
-latest=$(ls -r versions | head -1)
+
+repo=sickp/alpine-sshd
+latest=7.1
 version=${1:-$latest}
 
 docker build -t ${repo}:${version} --pull versions/${version}
 echo "=> Built ${repo}:${version}"
+docker build -t ${repo}:${version}-k8s --pull versions/${version}-k8s
+echo "=> Built ${repo}:${version}-k8s"
+
 if [[ $latest == $version ]]; then
   tags="latest"
   for tag in ${tags}; do

@@ -1,3 +1,0 @@
-#!/bin/bash
-repo="sickp/alpine-sshd"
-docker rmi $(docker images -q ${repo})
