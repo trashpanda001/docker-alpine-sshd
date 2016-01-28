@@ -1,6 +1,6 @@
 ### Alpine Linux SSHD
 
-A lightweight [OpenSSH][openssh] [Docker image][dockerhub_project]] built atop [Alpine Linux][gliderlabs_alpine]. Available on [GitHub][github_project].
+A lightweight [OpenSSH][openssh] [Docker image][dockerhub_project] built atop [Alpine Linux][gliderlabs_alpine]. Available on [GitHub][github_project].
 
 The root password is "root". SSH host keys (RSA, DSA, ECDSA, and ED25519) are auto-generated when the container is started, unless already present. Virtual size is ~8.8 MB.
 
@@ -114,3 +114,5 @@ RUN \
 [dockerfile_7_1_k8s]: https://github.com/sickp/docker-alpine-sshd/tree/master/versions/7.1-k8s/Dockerfile
 [examples]:           https://github.com/sickp/docker-alpine-sshd/tree/master/examples/
 [github_project]:     https://github.com/sickp/docker-alpine-sshd/
+[gliderlabs_alpine]:  https://hub.docker.com/r/gliderlabs/alpine/
+[openssh]:            http://www.openssh.com
