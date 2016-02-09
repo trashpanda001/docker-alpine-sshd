@@ -99,6 +99,7 @@ RUN \
 
 #### History
 
+- 2016-02-09 - Added support for ALPINE_NO_RESOLVER in Kubernetes version.
 - 2016-01-28 - Added Kubernetes version, Alpine Linux 3.3.1.
 - 2015-12-25 - Updated 7.1 to Alpine Linux 3.3.
 - 2015-11-16 - Initial version, based on [Centos SSHD][centos_sshd].
