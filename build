@@ -2,7 +2,7 @@
 set -e
 
 repo=sickp/alpine-sshd
-latest=7.1
+latest=7.2
 version=${1:-$latest}
 
 docker build -t ${repo}:${version} --pull versions/${version}

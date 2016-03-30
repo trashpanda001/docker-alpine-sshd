@@ -1,6 +1,6 @@
 ### Alpine Linux SSHD
 
-A lightweight [OpenSSH][openssh] [Docker image][dockerhub_project] built atop [Alpine Linux][gliderlabs_alpine]. Available on [GitHub][github_project].
+A lightweight [OpenSSH][openssh] [Docker image][dockerhub_project] built atop [Alpine Linux][alpine_linux]. Available on [GitHub][github_project].
 
 The root password is "root". SSH host keys (RSA, DSA, ECDSA, and ED25519) are auto-generated when the container is started, unless already present. Virtual size is ~8.8 MB.
 
@@ -8,13 +8,12 @@ Tags ending with the suffix `-k8s` are build on [Alpine-Kubernetes][alpine_kuber
 
 #### Tags
 
-* [`7.1`][dockerfile_7_1], [`latest`][dockerfile_7_1] (Alpine Linux 3.3, OpenSSH_7.1p2-hpn14v4, OpenSSL 1.0.2e 3 Dec 2015)
-* [`7.1-k8s`][dockerfile_7_1_k8s] (for Kubernetes)
+* [`7.2`][dockerfile_7_2], [`latest`][dockerfile_7_2], [`7.2-k8s`][dockerfile_7_2_k8s] (OpenSSH_7.2p2-hpn14v4, OpenSSL 1.0.2g  1 Mar 2016)
+* [`7.1`][dockerfile_7_1], [`7.1-k8s`][dockerfile_7_1_k8s] (Alpine Linux 3.3, OpenSSH_7.1p2-hpn14v4, OpenSSL 1.0.2e 3 Dec 2015)
 * [`6.8`][dockerfile_6_8] (Alpine Linux 3.2, OpenSSH_6.8p1-hpn14v4, OpenSSL 1.0.2d 9 Jul 2015)
 * [`6.7`][dockerfile_6_7] (Alpine Linux 3.1, OpenSSH_6.7p1-hpn14v4, OpenSSL 1.0.1p 9 Jul 2015)
 * [`6.4`][dockerfile_6_4] (Alpine Linux 2.7, OpenSSH_6.4p1-hpn14v1, OpenSSL 1.0.1p 9 Jul 2015)
 * [`6.2`][dockerfile_6_2] (Alpine Linux 2.6, OpenSSH_6.2p2, OpenSSL 1.0.1m 19 Mar 2015)
-
 
 #### Basic usage
 
@@ -99,12 +98,14 @@ RUN \
 
 #### History
 
+- 2016-03-30 - Updated to 7.2p2, OpenSSL 1.0.2g.
 - 2016-02-09 - Added support for ALPINE_NO_RESOLVER in Kubernetes version.
 - 2016-01-28 - Added Kubernetes version, Alpine Linux 3.3.1.
 - 2015-12-25 - Updated 7.1 to Alpine Linux 3.3.
 - 2015-11-16 - Initial version, based on [Centos SSHD][centos_sshd].
 
 [alpine_kubernetes]:  https://hub.docker.com/r/janeczku/alpine-kubernetes/
+[alpine_linux]:       https://hub.docker.com/_/alpine/
 [centos_sshd]:        https://hub.docker.com/r/sickp/centos-sshd/
 [dockerhub_project]:  https://hub.docker.com/r/gliderlabs/alpine/
 [dockerfile_6_2]:     https://github.com/sickp/docker-alpine-sshd/tree/master/versions/6.2/Dockerfile
@@ -113,7 +114,8 @@ RUN \
 [dockerfile_6_8]:     https://github.com/sickp/docker-alpine-sshd/tree/master/versions/6.8/Dockerfile
 [dockerfile_7_1]:     https://github.com/sickp/docker-alpine-sshd/tree/master/versions/7.1/Dockerfile
 [dockerfile_7_1_k8s]: https://github.com/sickp/docker-alpine-sshd/tree/master/versions/7.1-k8s/Dockerfile
+[dockerfile_7_2]:     https://github.com/sickp/docker-alpine-sshd/tree/master/versions/7.2/Dockerfile
+[dockerfile_7_2_k8s]: https://github.com/sickp/docker-alpine-sshd/tree/master/versions/7.2-k8s/Dockerfile
 [examples]:           https://github.com/sickp/docker-alpine-sshd/tree/master/examples/
 [github_project]:     https://github.com/sickp/docker-alpine-sshd/
-[gliderlabs_alpine]:  https://hub.docker.com/r/gliderlabs/alpine/
 [openssh]:            http://www.openssh.com
