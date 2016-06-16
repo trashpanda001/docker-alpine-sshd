@@ -1,24 +1,14 @@
-#!/bin/bash
-set -e
+#!/usr/bin/env ruby
+repo="sickp/alpine-sshd"
 
-repo=sickp/alpine-sshd
-latest=7.2
-version=${1:-$latest}
+sshd_version = ARGV.first
+unless File.file?("versions/#{sshd_version}/Dockerfile")
+  puts "Usage: build <sshd-version>"
+  exit 1
+end
 
-docker build -t ${repo}:${version} --pull versions/${version}
-echo "=> Built ${repo}:${version}"
-docker build -t ${repo}:${version}-k8s --pull versions/${version}-k8s
-echo "=> Built ${repo}:${version}-k8s"
+system("docker build -t #{repo}:#{sshd_version} --pull versions/#{sshd_version}") || abort
+puts "Built #{repo}:#{sshd_version}"
 
-if [[ $latest == $version ]]; then
-  tags="latest"
-  for tag in ${tags}; do
-    docker tag -f ${repo}:${version} ${repo}:${tag}
-    echo "=> Tagged ${repo}:${tag}"
-  done
-fi
-
-docker build -t sickp/alpine-sshd:sunshine examples/01_sunshine
-docker build -t sickp/alpine-sshd:authkeys examples/02_authorized_keys
-docker build -t sickp/alpine-sshd:multiuser examples/03_multiuser
-docker build -t sickp/alpine-sshd:hostkeys examples/04_host_keys
+system("docker tag #{repo}:#{sshd_version} #{repo}:latest") || abort
+puts "Tagged #{repo}:latest"

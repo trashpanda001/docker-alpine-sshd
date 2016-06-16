@@ -2,43 +2,60 @@
 
 A lightweight [OpenSSH][openssh] [Docker image][dockerhub_project] built atop [Alpine Linux][alpine_linux]. Available on [GitHub][github_project].
 
-The root password is "root". SSH host keys (RSA, DSA, ECDSA, and ED25519) are auto-generated when the container is started, unless already present. Virtual size is ~8.8 MB.
+The root password is "root". SSH host keys (RSA, DSA, ECDSA, and ED25519) are auto-generated when the container is started, unless already present.
 
-Tags ending with the suffix `-k8s` are build on [Alpine-Kubernetes][alpine_kubernetes], an image for Kubernetes and other Docker cluster environments that use DNS-based service discovery. It adds the necessary `search` domain support for DNS resolution.
+> If you're running Kubernetes 1.2.0 or later on all your cluster nodes, you should now use the non-`k8s` tags below. These tags are built on Alpine Linux 3.4, which adds the necessary DNS search support for service discovery. Kubernetes defaults to `dnsPolicy=ClusterFirst` in pod specs, and defines a single `nameserver` in `/etc/resolv.conf`. This means things should finally work correctly for Alpine Linux images without modification.
 
-#### Tags
+#### OpenSSL Version Tags
 
-* [`7.2`][dockerfile_7_2], [`latest`][dockerfile_7_2], [`7.2-k8s`][dockerfile_7_2_k8s] (OpenSSH_7.2p2-hpn14v4, OpenSSL 1.0.2g  1 Mar 2016)
-* [`7.1`][dockerfile_7_1], [`7.1-k8s`][dockerfile_7_1_k8s] (Alpine Linux 3.3, OpenSSH_7.1p2-hpn14v4, OpenSSL 1.0.2e 3 Dec 2015)
-* [`6.8`][dockerfile_6_8] (Alpine Linux 3.2, OpenSSH_6.8p1-hpn14v4, OpenSSL 1.0.2d 9 Jul 2015)
-* [`6.7`][dockerfile_6_7] (Alpine Linux 3.1, OpenSSH_6.7p1-hpn14v4, OpenSSL 1.0.1p 9 Jul 2015)
-* [`6.4`][dockerfile_6_4] (Alpine Linux 2.7, OpenSSH_6.4p1-hpn14v1, OpenSSL 1.0.1p 9 Jul 2015)
-* [`6.2`][dockerfile_6_2] (Alpine Linux 2.6, OpenSSH_6.2p2, OpenSSL 1.0.1m 19 Mar 2015)
+- `7.2`, `latest` (OpenSSH_7.2p2-hpn14v4, OpenSSL 1.0.2g  1 Mar 2016, [Dockerfile][dockerfile_7_2])
+- `7.1` (Alpine Linux 3.3, OpenSSH_7.1p2-hpn14v4, OpenSSL 1.0.2e 3 Dec 2015, [Dockerfile][dockerfile_7_1])
+- `6.8` (Alpine Linux 3.2, OpenSSH_6.8p1-hpn14v4, OpenSSL 1.0.2d 9 Jul 2015, [Dockerfile][dockerfile_6_8])
+- `6.7` (Alpine Linux 3.1, OpenSSH_6.7p1-hpn14v4, OpenSSL 1.0.1p 9 Jul 2015, [Dockerfile][dockerfile_6_7])
+- `6.4` (Alpine Linux 2.7, OpenSSH_6.4p1-hpn14v1, OpenSSL 1.0.1p 9 Jul 2015, [Dockerfile][dockerfile_6_4])
+- `6.2` (Alpine Linux 2.6, OpenSSH_6.2p2, OpenSSL 1.0.1m 19 Mar 2015, [Dockerfile][dockerfile_6_2])
 
-#### Basic usage
+#### Kubernetes <1.2.0
+
+Tags with the `-k8s` suffix are built on [Alpine-Kubernetes 3.3][alpine_kubernetes], an image for Kubernetes and other Docker cluster environments that use DNS-based service discovery. It adds the necessary `search` domain support for DNS resolution.
+
+- `7.2-k8s` (OpenSSH_7.2p2-hpn14v4, OpenSSL 1.0.2g  1 Mar 2016)
+- `7.1-k8s` (Alpine Linux 3.3, OpenSSH_7.1p2-hpn14v4, OpenSSL 1.0.2e 3 Dec 2015)
+
+### Basic Usage
 
 ```bash
-$ docker run -dP --name=sshd sickp/alpine-sshd # /sshd
-4d9060b18efad357d1216704068006d0dcaadf06367dbd3f551d1e943aabb5ec
-
-$ docker logs sshd
+$ docker run --rm --publish=2222:22 sickp/alpine-sshd:7.2 # /sshd
 ssh-keygen: generating new host keys: RSA DSA ECDSA ED25519
 Server listening on 0.0.0.0 port 22.
 Server listening on :: port 22.
 
-$ docker port sshd
-22/tcp -> 0.0.0.0:32768
-
-$ ssh root@localhost -p 32768 # on Mac/Windows replace localhost with $(docker-machine ip default)
+$ ssh root@localhost -p 2222  # or $(docker-machine ip default)
 # The root password is "root".
+
+$ docker ps | grep 2222
+cf8097ea881d        sickp/alpine-sshd:7.2   "/entrypoint.sh"    8 seconds ago       Up 4 seconds        0.0.0.0:2222->22/tcp   stoic_ptolemy
+$ docker stop cf80
 ```
 
-Any additional arguments are passed to `sshd`. For example, to enable debug output:
+Any arguments are passed to `sshd`. For example, to enable debug output:
 
 ```bash
-$ docker run -dP --name=sshd sickp/alpine-sshd /sshd -o LogLevel=DEBUG
+$ docker run --rm --publish=2222:22 sickp/alpine-sshd:7.2 -o LogLevel=DEBUG
+...
 ```
 
+#### Version Info
+
+```bash
+$ docker run --rm sickp/alpine-sshd:7.2 -v
+...
+OpenSSH_7.2p2-hpn14v4, OpenSSL 1.0.2h  3 May 2016
+...
+
+$ docker run --rm --entrypoint=cat sickp/alpine-sshd:7.2 /etc/alpine-release
+3.4.0
+```
 
 ### Customize
 
@@ -98,6 +115,7 @@ RUN \
 
 #### History
 
+- 2016-06-16 - Updated to Alpine Linux 3.4.0 (with `search` support for Kubernetes >=1.2.0).
 - 2016-03-30 - Updated to 7.2p2, OpenSSL 1.0.2g.
 - 2016-02-09 - Added support for ALPINE_NO_RESOLVER in Kubernetes version.
 - 2016-01-28 - Added Kubernetes version, Alpine Linux 3.3.1.
@@ -106,16 +124,13 @@ RUN \
 
 [alpine_kubernetes]:  https://hub.docker.com/r/janeczku/alpine-kubernetes/
 [alpine_linux]:       https://hub.docker.com/_/alpine/
-[centos_sshd]:        https://hub.docker.com/r/sickp/centos-sshd/
 [dockerhub_project]:  https://hub.docker.com/r/gliderlabs/alpine/
 [dockerfile_6_2]:     https://github.com/sickp/docker-alpine-sshd/tree/master/versions/6.2/Dockerfile
 [dockerfile_6_4]:     https://github.com/sickp/docker-alpine-sshd/tree/master/versions/6.4/Dockerfile
 [dockerfile_6_7]:     https://github.com/sickp/docker-alpine-sshd/tree/master/versions/6.7/Dockerfile
 [dockerfile_6_8]:     https://github.com/sickp/docker-alpine-sshd/tree/master/versions/6.8/Dockerfile
 [dockerfile_7_1]:     https://github.com/sickp/docker-alpine-sshd/tree/master/versions/7.1/Dockerfile
-[dockerfile_7_1_k8s]: https://github.com/sickp/docker-alpine-sshd/tree/master/versions/7.1-k8s/Dockerfile
 [dockerfile_7_2]:     https://github.com/sickp/docker-alpine-sshd/tree/master/versions/7.2/Dockerfile
-[dockerfile_7_2_k8s]: https://github.com/sickp/docker-alpine-sshd/tree/master/versions/7.2-k8s/Dockerfile
 [examples]:           https://github.com/sickp/docker-alpine-sshd/tree/master/examples/
 [github_project]:     https://github.com/sickp/docker-alpine-sshd/
 [openssh]:            http://www.openssh.com

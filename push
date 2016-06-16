@@ -1,11 +1,13 @@
-#!/bin/bash
-set -e
+#!/usr/bin/env ruby
+repo="sickp/alpine-sshd"
 
-repo=sickp/alpine-sshd
-latest=7.2
-tags="${latest} ${latest}-k8s latest"
+sshd_version = ARGV.first
+unless File.file?("versions/#{sshd_version}/Dockerfile")
+  puts "Usage: build <sshd-version>"
+  exit 1
+end
 
-for tag in ${tags}; do
-  docker push ${repo}:${tag}
-  echo "=> Pushed ${repo}:${tag}"
-done
+[sshd_version, "latest"].each do |tag|
+  system("docker push #{repo}:#{tag}") || abort
+  puts "Pushed #{repo}:#{tag}"
+end
