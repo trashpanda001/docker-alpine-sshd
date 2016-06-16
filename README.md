@@ -25,7 +25,7 @@ Tags with the `-k8s` suffix are built on [Alpine-Kubernetes 3.3][alpine_kubernet
 ### Basic Usage
 
 ```bash
-$ docker run --rm --publish=2222:22 sickp/alpine-sshd:7.2 # /sshd
+$ docker run --rm --publish=2222:22 sickp/alpine-sshd:7.2 # /entrypoint.sh
 ssh-keygen: generating new host keys: RSA DSA ECDSA ED25519
 Server listening on 0.0.0.0 port 22.
 Server listening on :: port 22.
@@ -124,7 +124,7 @@ RUN \
 
 [alpine_kubernetes]:  https://hub.docker.com/r/janeczku/alpine-kubernetes/
 [alpine_linux]:       https://hub.docker.com/_/alpine/
-[dockerhub_project]:  https://hub.docker.com/r/gliderlabs/alpine/
+[dockerhub_project]:  https://hub.docker.com/r/sickp/alpine-sshd/
 [dockerfile_6_2]:     https://github.com/sickp/docker-alpine-sshd/tree/master/versions/6.2/Dockerfile
 [dockerfile_6_4]:     https://github.com/sickp/docker-alpine-sshd/tree/master/versions/6.4/Dockerfile
 [dockerfile_6_7]:     https://github.com/sickp/docker-alpine-sshd/tree/master/versions/6.7/Dockerfile
