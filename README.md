@@ -115,6 +115,7 @@ RUN \
 
 #### History
 
+- 2016-11-16 - Updated to Alpine Linux 3.4.4, OpenSSL 1.0.2j.
 - 2016-09-29 - Updated to Alpine Linux 3.4.3, OpenSSL 1.0.2i.
 - 2016-06-16 - Updated to Alpine Linux 3.4.0 (with `search` support for Kubernetes >=1.2.0).
 - 2016-03-30 - Updated to 7.2p2, OpenSSL 1.0.2g.
