@@ -8,7 +8,7 @@ The root password is "root". SSH host keys (RSA, DSA, ECDSA, and ED25519) are au
 
 #### OpenSSL Version Tags
 
-- `7.2`, `latest` (OpenSSH_7.2p2-hpn14v4, OpenSSL 1.0.2i  22 Sep 2016, [Dockerfile][dockerfile_7_2])
+- `7.2`, `latest` (OpenSSH_7.2p2-hpn14v4, OpenSSL 1.0.2j  26 Sep 2016, [Dockerfile][dockerfile_7_2])
 - `7.1` (Alpine Linux 3.3, OpenSSH_7.1p2-hpn14v4, OpenSSL 1.0.2e 3 Dec 2015, [Dockerfile][dockerfile_7_1])
 - `6.8` (Alpine Linux 3.2, OpenSSH_6.8p1-hpn14v4, OpenSSL 1.0.2d 9 Jul 2015, [Dockerfile][dockerfile_6_8])
 - `6.7` (Alpine Linux 3.1, OpenSSH_6.7p1-hpn14v4, OpenSSL 1.0.1p 9 Jul 2015, [Dockerfile][dockerfile_6_7])
@@ -50,11 +50,11 @@ $ docker run --rm --publish=2222:22 sickp/alpine-sshd:7.2 -o LogLevel=DEBUG
 ```bash
 $ docker run --rm sickp/alpine-sshd:7.2 -v
 ...
-OpenSSH_7.2p2-hpn14v4, OpenSSL 1.0.2i  22 Sep 2016
+OpenSSH_7.2p2-hpn14v4, OpenSSL 1.0.2j  26 Sep 2016
 ...
 
 $ docker run --rm --entrypoint=cat sickp/alpine-sshd:7.2 /etc/alpine-release
-3.4.3
+3.4.4
 ```
 
 ### Customize
