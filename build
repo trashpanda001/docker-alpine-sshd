@@ -7,7 +7,7 @@ unless File.file?("versions/#{sshd_version}/Dockerfile")
   exit 1
 end
 
-system("docker build -t #{repo}:#{sshd_version} --pull versions/#{sshd_version}") || abort
+system("docker build -t #{repo}:#{sshd_version} --pull versions/#{sshd_version} --squash") || abort
 puts "Built #{repo}:#{sshd_version}"
 
 system("docker tag #{repo}:#{sshd_version} #{repo}:latest") || abort

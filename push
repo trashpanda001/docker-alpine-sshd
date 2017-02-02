@@ -3,7 +3,7 @@ repo="sickp/alpine-sshd"
 
 sshd_version = ARGV.first
 unless File.file?("versions/#{sshd_version}/Dockerfile")
-  puts "Usage: build <sshd-version>"
+  puts "Usage: push <sshd-version>"
   exit 1
 end
 
