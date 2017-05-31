@@ -1,13 +1,30 @@
 #!/usr/bin/env ruby
-repo="sickp/alpine-sshd"
+repo='sickp/alpine-sshd'
 
-sshd_version = ARGV.first
-unless File.file?("versions/#{sshd_version}/Dockerfile")
-  puts "Usage: push <sshd-version>"
+def error(message)
+  puts message
+  puts "Usage: #{__FILE__} {major}.{minor} [latest]"
   exit 1
 end
 
-[sshd_version, "latest"].each do |tag|
-  system("docker push #{repo}:#{tag}") || abort
-  puts "Pushed #{repo}:#{tag}"
+def execute(cmd)
+  puts "=> #{cmd}"
+  system(cmd) || abort
+end
+
+version, *tags = ARGV
+error('Missing version') unless version
+error("Unexpected tags: #{tags.join(', ')}") unless tags.empty? || (tags.first == 'latest')
+
+dockerfile = File.join(File.dirname(__FILE__), 'versions', version, 'Dockerfile')
+error("Missing Dockerfile #{dockerfile}") unless File.file?(dockerfile)
+
+puts "==== Pushing #{repo}:#{version} ===="
+execute("docker image push #{repo}:#{version}")
+
+tags.each do |tag|
+  puts "==== Tagging #{repo}:#{tag} ===="
+  execute("docker image tag #{repo}:#{version} #{repo}:#{tag}")
+  execute("docker image push #{repo}:#{tag}")
+  execute("docker image rm #{repo}:#{tag}")
 end

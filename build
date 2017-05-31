@@ -1,14 +1,21 @@
 #!/usr/bin/env ruby
-repo="sickp/alpine-sshd"
+repo='sickp/alpine-sshd'
 
-sshd_version = ARGV.first
-unless File.file?("versions/#{sshd_version}/Dockerfile")
-  puts "Usage: build <sshd-version>"
+def error(message)
+  puts message
+  puts "Usage: #{__FILE__} {major}.{minor}"
   exit 1
 end
 
-system("docker build -t #{repo}:#{sshd_version} --pull versions/#{sshd_version} --squash") || abort
-puts "Built #{repo}:#{sshd_version}"
+def execute(cmd)
+  puts "=> #{cmd}"
+  system(cmd) || abort
+end
 
-system("docker tag #{repo}:#{sshd_version} #{repo}:latest") || abort
-puts "Tagged #{repo}:latest"
+version = ARGV.first
+error("Bad version format: #{version}") unless version&.match?(/\A\d+\.\d+\z/)
+
+dockerfile = File.join(File.dirname(__FILE__), 'versions', version, 'Dockerfile')
+error("Missing Dockerfile #{dockerfile}") unless File.file?(dockerfile)
+
+execute("docker image build --tag #{repo}:#{version} --pull versions/#{version}")
