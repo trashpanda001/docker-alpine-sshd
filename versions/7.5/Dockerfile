@@ -1,12 +1,9 @@
 FROM alpine:3.6
-MAINTAINER Adrian B. Danieli "https://github.com/sickp"
-
-EXPOSE 22
+LABEL maintainer "Adrian B. Danieli - https://github.com/sickp"
 ENTRYPOINT ["/entrypoint.sh"]
-
-RUN apk --update add openssh \
-  && sed -i s/#PermitRootLogin.*/PermitRootLogin\ yes/ /etc/ssh/sshd_config \
-  && echo "root:root" | chpasswd \
-  && rm -rf /var/cache/apk/*
-
+EXPOSE 22
 COPY rootfs /
+
+RUN apk add --no-cache openssh \
+  && sed -i s/#PermitRootLogin.*/PermitRootLogin\ yes/ /etc/ssh/sshd_config \
+  && echo "root:root" | chpasswd
