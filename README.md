@@ -15,12 +15,6 @@ The root password is "root". SSH host keys (RSA, DSA, ECDSA, and ED25519) are au
 - `6.4` (Alpine Linux 2.7, OpenSSH_6.4p1-hpn14v1, OpenSSL 1.0.1p 9 Jul 2015, [Dockerfile](https://github.com/sickp/docker-alpine-sshd/tree/master/versions/6.4/Dockerfile))
 - `6.2` (Alpine Linux 2.6, OpenSSH_6.2p2, OpenSSL 1.0.1m 19 Mar 2015, [Dockerfile](https://github.com/sickp/docker-alpine-sshd/tree/master/versions/6.2/Dockerfile))
 
-#### Kubernetes <1.2.0
-
-Tags with the `-k8s` suffix are built on [Alpine-Kubernetes 3.3][alpine_kubernetes], an image for Kubernetes and other Docker cluster environments that use DNS-based service discovery. It adds the necessary `search` domain support for DNS resolution. If you're running Kubernetes 1.2.0 or later on all your cluster nodes, you should now use the non-`k8s` tags. Modern Kubernetes defaults to `dnsPolicy=ClusterFirst` in pod specs, and defines a single `nameserver` in `/etc/resolv.conf`. This means things should finally work correctly for Alpine Linux images without modification.
-
-- `7.2-k8s` (OpenSSH_7.2p2-hpn14v4, OpenSSL 1.0.2g  1 Mar 2016)
-- `7.1-k8s` (Alpine Linux 3.3, OpenSSH_7.1p2-hpn14v4, OpenSSL 1.0.2e 3 Dec 2015)
 
 ### Basic Usage
 
@@ -116,7 +110,7 @@ RUN \
 ### History
 
     2017-05-31 Updated to OpenSSH_7.5p1, LibreSSL 2.5.4 (Alpine Linux 3.6.0).
-    2016-02-01 Updated to OpenSSH_7.4p1, LibreSSL 2.4.4 (Alpine Linux 3.5.0).
+    2017-02-01 Updated to OpenSSH_7.4p1, LibreSSL 2.4.4 (Alpine Linux 3.5.0).
     2016-11-16 Updated to Alpine Linux 3.4.4, OpenSSL 1.0.2j.
     2016-09-29 Updated to Alpine Linux 3.4.3, OpenSSL 1.0.2i.
     2016-06-16 Updated to Alpine Linux 3.4.0 (with `search` support for Kubernetes >=1.2.0).
@@ -124,7 +118,7 @@ RUN \
     2016-02-09 Added support for ALPINE_NO_RESOLVER in Kubernetes version.
     2016-01-28 Added Kubernetes version, Alpine Linux 3.3.1.
     2015-12-25 Updated 7.1 to Alpine Linux 3.3.
-    2015-11-16 Initial version, based on [Centos SSHD][centos_sshd].
+    2015-11-16 Initial version.
 
 [alpine_kubernetes]:  https://hub.docker.com/r/janeczku/alpine-kubernetes/
 [alpine_linux]:       https://hub.docker.com/_/alpine/
