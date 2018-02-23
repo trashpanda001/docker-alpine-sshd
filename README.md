@@ -6,7 +6,8 @@ The root password is "root". SSH host keys (RSA, DSA, ECDSA, and ED25519) are au
 
 #### OpenSSL Version Tags
 
-- `7.5`, `latest` (OpenSSH_7.5p1-hpn14v4, LibreSSL 2.5.4, [Dockerfile](https://github.com/sickp/docker-alpine-sshd/tree/master/versions/7.5/Dockerfile))
+- `7.5-r2`, `latest` (OpenSSH_7.5p1-hpn14v4, LibreSSL 2.6.3, [Dockerfile](https://github.com/sickp/docker-alpine-sshd/tree/master/versions/7.5-r2/Dockerfile))
+- `7.5` (OpenSSH_7.5p1-hpn14v4, LibreSSL 2.5.4, [Dockerfile](https://github.com/sickp/docker-alpine-sshd/tree/master/versions/7.5/Dockerfile))
 - `7.4` (OpenSSH_7.4p1, LibreSSL 2.4.4, [Dockerfile](https://github.com/sickp/docker-alpine-sshd/tree/master/versions/7.4/Dockerfile))
 - `7.2` (OpenSSH_7.2p2-hpn14v4, OpenSSL 1.0.2j  26 Sep 2016, [Dockerfile](https://github.com/sickp/docker-alpine-sshd/tree/master/versions/7.2/Dockerfile))
 - `7.1` (Alpine Linux 3.3, OpenSSH_7.1p2-hpn14v4, OpenSSL 1.0.2e 3 Dec 2015, [Dockerfile](https://github.com/sickp/docker-alpine-sshd/tree/master/versions/7.1/Dockerfile))
@@ -19,7 +20,7 @@ The root password is "root". SSH host keys (RSA, DSA, ECDSA, and ED25519) are au
 ### Basic Usage
 
 ```bash
-$ docker run --rm --publish=2222:22 sickp/alpine-sshd:7.5 # /entrypoint.sh
+$ docker run --rm --publish=2222:22 sickp/alpine-sshd:7.5-r2 # /entrypoint.sh
 ssh-keygen: generating new host keys: RSA DSA ECDSA ED25519
 Server listening on 0.0.0.0 port 22.
 Server listening on :: port 22.
@@ -28,7 +29,7 @@ $ ssh root@localhost -p 2222  # or $(docker-machine ip default)
 # The root password is "root".
 
 $ docker ps | grep 2222
-cf8097ea881d        sickp/alpine-sshd:7.5   "/entrypoint.sh"    8 seconds ago       Up 4 seconds        0.0.0.0:2222->22/tcp   stoic_ptolemy
+cf8097ea881d        sickp/alpine-sshd:7.5-r2   "/entrypoint.sh"    8 seconds ago       Up 4 seconds        0.0.0.0:2222->22/tcp   stoic_ptolemy
 $ docker stop cf80
 ```
 
@@ -42,13 +43,13 @@ $ docker run --rm --publish=2222:22 sickp/alpine-sshd:7.5 -o LogLevel=DEBUG
 #### Version Info
 
 ```bash
-$ docker run --rm sickp/alpine-sshd:7.5 -v
+$ docker run --rm sickp/alpine-sshd:7.5-r2 -v
 ...
-OpenSSH_7.5p1-hpn14v4, LibreSSL 2.5.4
+OpenSSH_7.5p1-hpn14v4, LibreSSL 2.6.3
 ...
 
-$ docker run --rm --entrypoint=cat sickp/alpine-sshd:7.5 /etc/alpine-release
-3.6.0
+$ docker run --rm --entrypoint=cat sickp/alpine-sshd:7.5-r2 /etc/alpine-release
+3.7.0
 ```
 
 ### Customize
@@ -94,7 +95,7 @@ RUN \
 
 #### Embed SSH host keys
 
-Embed SSH host keys directly in your private image, so you can treat your containers like cattle.
+Embed SSH host keys directly in your private image (via `ssh-keygen -A`), so you can treat your containers like cattle.
 
 ```dockerfile
 FROM sickp/alpine-sshd:latest
@@ -109,6 +110,7 @@ RUN \
 
 ### History
 
+    2018-02-22 Updated to OpenSSH_7.5.p1-hpn14v4, LibreSSL 2.6.3 (Alpine Linux 3.7.0).
     2017-05-31 Updated to OpenSSH_7.5p1, LibreSSL 2.5.4 (Alpine Linux 3.6.0).
     2017-02-01 Updated to OpenSSH_7.4p1, LibreSSL 2.4.4 (Alpine Linux 3.5.0).
     2016-11-16 Updated to Alpine Linux 3.4.4, OpenSSL 1.0.2j.

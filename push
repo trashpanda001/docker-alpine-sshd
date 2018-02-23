@@ -13,7 +13,7 @@ def execute(cmd)
 end
 
 version, *tags = ARGV
-error('Missing version') unless version
+error("Bad version format: #{version}") unless version&.match?(/\A\d+\.\d+(-r\d+)?\z/)
 error("Unexpected tags: #{tags.join(', ')}") unless tags.empty? || (tags.first == 'latest')
 
 dockerfile = File.join(File.dirname(__FILE__), 'versions', version, 'Dockerfile')

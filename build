@@ -13,7 +13,7 @@ def execute(cmd)
 end
 
 version = ARGV.first
-error("Bad version format: #{version}") unless version&.match?(/\A\d+\.\d+\z/)
+error("Bad version format: #{version}") unless version&.match?(/\A\d+\.\d+(-r\d+)?\z/)
 
 dockerfile = File.join(File.dirname(__FILE__), 'versions', version, 'Dockerfile')
 error("Missing Dockerfile #{dockerfile}") unless File.file?(dockerfile)
