@@ -3,7 +3,7 @@ repo='sickp/alpine-sshd'
 
 def error(message)
   puts message
-  puts "Usage: #{__FILE__} {major}.{minor} [latest]"
+  puts "Usage: #{__FILE__} {major}.{minor}-r1 [tags...]"
   exit 1
 end
 
@@ -14,7 +14,6 @@ end
 
 version, *tags = ARGV
 error("Bad version format: #{version}") unless version&.match?(/\A\d+\.\d+(-r\d+)?\z/)
-error("Unexpected tags: #{tags.join(', ')}") unless tags.empty? || (tags.first == 'latest')
 
 dockerfile = File.join(File.dirname(__FILE__), 'versions', version, 'Dockerfile')
 error("Missing Dockerfile #{dockerfile}") unless File.file?(dockerfile)
